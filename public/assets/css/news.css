@@ -1,0 +1,48 @@
+.partsCard {
+  box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.21);
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.21);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0, 0, 0, 0.21);
+  border-radius: 10px 10px 10px 10px;
+  -webkit-border-radius: 10px 10px 10px 10px;
+  -moz-border-radius: 10px 10px 10px 10px;
+}
+
+.hover-div ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.hover-div li {
+  float: left;
+}
+
+.hover-div li span {
+  position: relative;
+  display: block;
+  /* color: #fff; */
+  text-align: left;
+  padding: 8px 12px;
+  text-decoration: none;
+  z-index: 0;
+}
+
+.hover-div li span:before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  background-color: #7bc5f6;
+  z-index: -1;
+  transform: scale(0);
+  border-radius: 12px;
+  transition: transform 0.5s ease-in-out;
+}
+
+.hover-div li span:hover:before,
+.hover-div li span:focus:before {
+  transform: scale(1);
+}

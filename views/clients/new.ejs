@@ -1,0 +1,134 @@
+<% layout('layouts/boilerplateDashboard') %>
+<div class="row">
+  <div class="col-12">
+    <div class="card border shadow-xs mb-4">
+      <div class="card-header border-bottom pb-0">
+        <%- include('../partials/companies/flash.ejs') %>
+        <div class="d-sm-flex align-items-center">
+          <div>
+            <h6 class="font-weight-bold text-lg mb-0">Nuevo Cliente</h6>
+            <p class="text-sm">Ingresa los datos del nuevo cliente!</p>
+          </div>
+          <div class="ms-auto d-flex"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form
+          class="needs-validation"
+          action="/companies/<%= company.id_company %>/clients"
+          method="post"
+          novalidate
+          role="form text-left"
+        >
+          <div class="row">
+            <div class="col-md-6">
+              <!-- combo -->
+              <label for="tipoIdentificacion">Tipo de identificación</label>
+              <div class="form-group">
+                <select
+                  class="form-control"
+                  id="selectTipoIdentificacion"
+                  name="tipoIdentificacion"
+                  required
+                >
+                  <option selected disabled value="">Seleccione...</option>
+                  <option value="04">RUC</option>
+                  <option value="05">Cedula</option>
+                  <option value="06">Pasaporte</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="ruc">Identificación</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="9999999999999"
+                  id="ruc"
+                  name="ruc"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label for="razonSocial">Razón Social / Nombres</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Razón Social / Nombre"
+                  id="razonSocial"
+                  name="razonSocial"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="direccion">Dirección Matriz</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Dirección Matriz"
+                  id="direccion"
+                  name="direccion"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <label for="telefono">Telefono / Celular</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="0999999999"
+                  id="telefono"
+                  name="telefono"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="email">Correo electrónico</label>
+              <div class="input-group mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="ejemplo@gmail.com"
+                  id="email"
+                  name="email"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button
+              type="submit"
+              class="btn btn-primary btn-rounded w-50 mt-2 mb-0"
+            >
+              Registrar
+            </button>
+            <a
+              href="/companies/<%= company.id_company %>/clients"
+              role="button"
+              class="btn btn-white btn-rounded w-50 mt-1 mb-1"
+            >
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="my-0" />

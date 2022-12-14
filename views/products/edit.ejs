@@ -1,0 +1,133 @@
+<% layout('layouts/boilerplateDashboard') %>
+<div class="row">
+  <div class="col-12">
+    <div class="card border shadow-xs mb-4">
+      <div class="card-header border-bottom pb-0">
+        <%- include('../partials/companies/flash.ejs') %>
+        <div class="d-sm-flex align-items-center">
+          <div>
+            <h6 class="font-weight-bold text-lg mb-0">Editar Producto</h6>
+            <p class="text-sm">Actualice los datos del producto!</p>
+          </div>
+          <div class="ms-auto d-flex"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form
+          class="needs-validation"
+          action="/companies/<%= company.id_company %>/products/<%= product.id_product %>?_method=PUT"
+          method="post"
+          novalidate
+          role="form text-left"
+        >
+          <div class="row">
+            <div class="col-md-8">
+              <label for="nombre">Nombre</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Manzana"
+                  id="nombre"
+                  name="nombre"
+                  value="<%= product.nombre %>"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="precio">Precio</label>
+              <div class="input-group mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="0.00"
+                  id="precio"
+                  name="precio"
+                  min="0"
+                  step=".01"
+                  value="<%= product.precio %>"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-2">
+              <label for="">Llevar Stock?</label>
+              <div class="form-check mb-3">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="customRadio1"
+                  onclick="document.getElementById('stock').disabled = false; document.getElementById('customRadio2').checked = false;"
+                  <% if(product.stock) {%>checked<%} %>  
+                  />
+                <label class="custom-control-label" for="customRadio1"
+                  >Si</label
+                >
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  id="customRadio2"
+                  onclick="document.getElementById('stock').disabled = true; document.getElementById('stock').value = ''; document.getElementById('customRadio1').checked = false;"
+                  <% if(!product.stock) {%>checked<%} %>
+                />
+                <label class="custom-control-label" for="customRadio2"
+                  >No</label
+                >
+              </div>
+            </div>
+            <div class="col-md-4">
+              <label for="stock">Stock</label>
+              <div class="input-group mb-3">
+                <input
+                  type="number"
+                  class="form-control"
+                  placeholder="0"
+                  id="stock"
+                  name="stock"
+                  min="0"
+                  step="1"
+                  value="<%= product.stock || '' %>"                  
+                  <% if(!product.stock) {%>disabled<%} %>                  
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="descr">Descripcion (opcional)</label>
+              <div class="input-group mb-3">
+                <textarea
+                  class="form-control"
+                  id="descr"
+                  name="descr"                                   
+                  rows="3"
+                ><%= product.descr || '' %></textarea>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button
+              type="submit"
+              class="btn btn-primary btn-rounded w-50 mt-2 mb-0"
+            >
+              Actualizar
+            </button>
+            <a
+              href="/companies/<%= company.id_company %>/products"
+              role="button"
+              class="btn btn-white btn-rounded w-50 mt-1 mb-1"
+            >
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="my-0" />

@@ -1,0 +1,31 @@
+<% if(success && success.length) {%>
+<div
+  class="alert bg-gradient-success alert-dismissible text-sm text-white fade show"
+  role="alert"
+>
+  <span class="alert-text"> <%= success %></span>
+  <button
+    type="button"
+    class="btn-close btn-sm"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %> <% if(error && error.length) {%>
+<div
+  class="alert bg-gradient-danger alert-dismissible text-sm text-white fade show"
+  role="alert"
+>
+  <span class="alert-text"> <%= error %></span>
+  <button
+    type="button"
+    class="btn-close btn-sm"
+    data-bs-dismiss="alert"
+    aria-label="Close"
+  >
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<% } %>

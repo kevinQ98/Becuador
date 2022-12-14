@@ -1,0 +1,73 @@
+<% layout('layouts/boilerplateUsers') %>
+
+<div class="row">
+  <div class="col-xl-4 col-md-6 d-flex flex-column mx-auto">
+    <div class="card card-plain mt-8">
+      <div class="card-header pb-0 text-left bg-transparent">
+        <!-- FLASH -->
+        <div class="row"><%- include('../partials/users/flash.ejs') %></div>
+        <h3 class="font-weight-black text-dark display-5">
+          Bienvenido de nuevo
+        </h3>
+        <p class="mb-0">Por favor, introduzca sus datos.</p>
+      </div>
+      <div class="card-body">
+        <form action="/login" method="post" class="needs-validation" novalidate>
+          <label for="email">Correo electrónico</label>
+          <div class="mb-3">
+            <input
+              type="email"
+              class="form-control"
+              placeholder="Ingrese su correo electrónico"
+              id="email"
+              name="email"
+              autocomplete="off"
+              value="demo@demo.com"
+              required
+            />
+          </div>
+          <label for="password">Contraseña</label>
+          <div class="mb-3">
+            <input
+              type="password"
+              class="form-control"
+              placeholder="Ingrese su contraseña"
+              id="password"
+              name="password"
+              value="demo"
+              required
+            />
+          </div>
+          <div class="text-center">
+            <button type="submit" class="btn btn-dark w-100 mt-4 mb-3">
+              Iniciar sesión
+            </button>
+          </div>
+        </form>
+      </div>
+      <div class="card-footer text-center pt-0 px-lg-2 px-1">
+        <p class="mb-4 text-xs mx-auto">
+          ¿No tiene una cuenta?
+          <a href="/login" class="text-dark font-weight-bold">Registrarse</a>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="position-absolute w-40 top-0 end-0 h-100 d-md-block d-none">
+      <div
+        class="oblique-image position-absolute fixed-top ms-auto h-100 z-index-0 bg-cover ms-n8"
+        style="background-image: url('/assets/img/image-sign-in.jpg')"
+      >
+        <div
+          class="blur mt-12 p-4 text-center border border-white border-radius-md position-absolute fixed-bottom m-4"
+        >
+          <h2 class="mt-3 text-dark font-weight-bold">
+            Facturación sencilla para particulares y pequeñas empresas.
+          </h2>
+          <h6 class="text-dark text-sm mt-5">Developed by Kevin Quinde.</h6>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

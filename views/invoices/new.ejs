@@ -1,0 +1,778 @@
+<% layout('layouts/boilerplateDashboard') %>
+<div class="row">
+  <div class="col-12">
+    <div class="card border shadow-xs mb-4">
+      <div class="card-header border-bottom pb-0">
+        <%- include('../partials/companies/flash.ejs') %>
+        <div class="d-sm-flex align-items-center">
+          <div>
+            <h6 class="font-weight-bold text-lg mb-3">Nueva Factura</h6>
+          </div>
+          <div class="ms-auto d-flex">
+            <div class="form-group">
+              <label
+                for="example-datetime-local-input"
+                class="form-control-label"
+                >Fecha</label
+              >
+              <input
+                class="form-control"
+                type="date"
+                value="2022-11-25"
+                id="example-datetime-local-input"
+              />
+            </div>
+            <div class="input-group input-group-lg">
+              <span class="input-group-text" id="inputGroup-sizing-lg"
+                >Núm Factura</span
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="secuencial"
+                value="<%= secuencial %>"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- CLIENT -->
+        <div class="card-body partsCard mb-3">
+          <div>
+            <h6 class="font-weight-semibold mb-0">Cliente</h6>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-4">
+              <div class="input-group mb-1">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="(RUC, Cedula, Pasaporte)"
+                  name="idClient"
+                  id="idClient"
+                />
+                <button
+                  class="btn btn-outline-primary mb-0"
+                  type="button"
+                  id="btnSearchClient"
+                  onclick="searchClientByID()"
+                >
+                  Buscar
+                </button>
+              </div>
+              <div class="badge bg-gradient-danger m-0" id="valid-client"></div>
+            </div>
+            <div class="col-2">
+              <div class="form-group">
+                <label class="form-control-label" for="ruc"
+                  >Identificacion</label
+                >
+                <div class="input-group">
+                  <input type="text" class="form-control" id="ruc" readonly />
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label class="form-control-label" for="razonSocial"
+                  >Razon Social</label
+                >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="razonSocial"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="row align-items-center">
+            <div class="col-4">
+              <a
+                href="/companies/<%= company.id_company %>/clients/new"
+                role="button"
+                class="btn btn-secondary w-100"
+              >
+                Registrar Nuevo Cliente
+              </a>
+            </div>
+            <div class="col-8">
+              <div class="form-group">
+                <label class="form-control-label" for="address"
+                  >Direccion</label
+                >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-4"></div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-control-label" for="phone">Telefono</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="phone" readonly />
+                </div>
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-control-label" for="email"
+                  >Correo Electronico</label
+                >
+                <div class="input-group">
+                  <input type="text" class="form-control" id="email" readonly />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- DETAILS -->
+        <div class="card-body partsCard mb-3">
+          <div>
+            <h6 class="font-weight-semibold mb-3">Detalle</h6>
+          </div>
+          <div class="row">
+            <!-- SEARCH PROD -->
+            <div class="col-12">
+              <div class="row align-items-center">
+                <div class="col-10 mb-0 pb-0">
+                  <div
+                    class="badge bg-gradient-danger m-0"
+                    id="valid-product"
+                  ></div>
+
+                  <div class="input-group mb-0">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="Nombre Producto"
+                      name="nameProduct"
+                      id="nameProduct"
+                      onkeyup="listProducts()"
+                    />
+                    <button
+                      class="btn btn-outline-primary mb-0"
+                      type="button"
+                      id="btnSearchProd"
+                      onclick="searchProductByName()"
+                    >
+                      Buscar
+                    </button>
+                  </div>
+                  <div class="hover-div">
+                    <ul class="list-group" id="resultListProd"></ul>
+                  </div>
+                </div>
+                <!-- New Prod btn -->
+                <div class="col-2 mt-2 mb-0 py-0">
+                  <a
+                    href="/companies/<%= company.id_company %>/products/new"
+                    role="button"
+                    class="btn mt-2 btn-secondary text-xs"
+                  >
+                    Registrar Nuevo Producto
+                  </a>
+                </div>
+                <!-- others prod -->
+                <div class="col-4">
+                  <div class="form-group">
+                    <label class="form-control-label" for="code">Codigo</label>
+                    <div class="input-group">
+                      <input
+                        type="text"
+                        class="form-control"
+                        id="code"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="price">Precio</label>
+                    <div class="input-group">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="price"
+                        min="0"
+                        step=".01"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-group">
+                    <label class="form-control-label" for="qty">Cantidad</label>
+                    <div class="input-group">
+                      <input
+                        type="number"
+                        class="form-control"
+                        id="qty"
+                        min="0"
+                        step="1"
+                        disabled
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div class="col-2 p-0 mt-3">
+                  <button
+                    type="button"
+                    class="btn btn-outline-info mt-3"
+                    onclick="addProd()"
+                    data-bs-toggle="tooltip"
+                    data-bs-placement="top"
+                    title="Agregar Producto"
+                  >
+                    <i class="fas fa-solid fa-plus"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!-- TABLE PROD -->
+            <div class="col-12">
+              <table class="table" id="tableProdAdd">
+                <thead class="">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="text-center text-secondary text-xs font-weight-semibold opacity-7 border-light"
+                    >
+                      Codigo
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-center text-secondary text-xs font-weight-semibold opacity-7 border-light"
+                    >
+                      Cantidad
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    >
+                      Descripcion
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    >
+                      P.Unit
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    >
+                      Total
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    ></th>
+                  </tr>
+                </thead>
+                <tbody id="tableBodyProducts"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- FOOTER INVOICE -->
+        <div class="card-body partsCard mb-1">
+          <div class="row">
+            <!-- WAY BILL -->
+            <div class="col-3">
+              <div class="form-group">
+                <label for="formaPago">Forma de Pago</label>
+                <select
+                  class="form-control"
+                  id="formaPago"
+                  onchange="resetSelect();"
+                >
+                  <option selected disabled value="">Seleccione...</option>
+                  <option value="01">Efectivo</option>
+                  <option value="16">Tarjeta de Debito</option>
+                  <option value="17">Dinero Electronico</option>
+                  <option value="19">Tarjeta de Credito</option>
+                  <option value="20">Otros</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="comentario">Comentario</label>
+                <textarea
+                  class="form-control"
+                  id="comentario"
+                  rows="2"
+                  placeholder="Opcional"
+                ></textarea>
+              </div>
+            </div>
+            <!-- MIDDLE -->
+            <div class="col-3">
+              <div class="form-group">
+                <label for="estadoFactura">Estado Factura</label>
+                <select class="form-control" id="estadoFactura">
+                  <option disabled value="">Seleccione...</option>
+                  <option selected value="1">Completada</option>
+                  <option value="2">Por Cobrar</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-3">
+              <!-- <div class="form-group">
+                <label for="estadoSri">Estado SRI</label>
+                <select class="form-control" id="estadoSri">
+                  <option disabled value="">Seleccione...</option>
+                  <option selected value="1">Enviar al finalizar</option>
+                  <option value="2">Pendiente de envio</option>
+                </select>
+              </div> -->
+            </div>
+            <!-- TOTALS -->
+            <div class="col-3">
+              <div class="form-group mb-1">
+                <div class="input-group">
+                  <span class="input-group-text">Subtotal</span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="0.00"
+                    id="subtotal"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="form-group mb-1">
+                <div class="input-group">
+                  <span class="input-group-text">IVA</span>
+                  <select
+                    class="form-control"
+                    id="selectIva"
+                    onchange="getvalIva(this);"
+                  >
+                    <option selected disabled value="">
+                      Seleccione tarifa IVA
+                    </option>
+                    <option value="0">0&#37;</option>
+                    <option value="2">12&#37;</option>
+                    <option value="3">14&#37;</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group mb-2">
+                <div class="input-group">
+                  <span class="input-group-text text-lg">Total</span>
+                  <input
+                    type="number"
+                    class="form-control text-lg"
+                    placeholder="0.00"
+                    id="totalFact"
+                    readonly
+                  />
+                </div>
+              </div>
+              <button
+                type="button"
+                class="btn btn-primary w-100"
+                onclick="addFact()"
+              >
+                Registrar Factura
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="my-0" />
+<!-- SCRIPT -->
+<script>
+  // SEARCH CLIENT
+  function searchClientByID() {
+    var idClient = $("#idClient").val();
+    if (!idClient) {
+      alert("Ingrese una identificacion!");
+    }
+    $.ajax({
+      url:
+        "/companies/<%= company.id_company %>/clients/searchID?idClient=" +
+        idClient,
+      type: "GET",
+      success: function (response, status) {
+        if (response) {
+          // console.log("AJAX worked!", response);
+          $("#ruc").val(response.ruc);
+          $("#razonSocial").val(response.razonSocial);
+          $("#address").val(response.direccion);
+          $("#phone").val(response.telefono);
+          $("#email").val(response.email);
+          $("#valid-client")
+            .text("Cliente encontrado!")
+            .removeClass("bg-gradient-success")
+            .removeClass("bg-gradient-danger")
+            .addClass("bg-gradient-success");
+        } else {
+          // console.log("NULL");
+          $("#ruc").val("");
+          $("#razonSocial").val("");
+          $("#address").val("");
+          $("#phone").val("");
+          $("#email").val("");
+          $("#valid-client")
+            .text("Cliente no encontrado!")
+            .removeClass("bg-gradient-danger")
+            .removeClass("bg-gradient-success")
+            .addClass("bg-gradient-danger");
+        }
+      },
+    });
+  }
+
+  // LIST PRODUCTS
+  function listProducts() {
+    var searchProdText = $("#nameProduct").val();
+    $("#valid-product").text("");
+    $("#price").val("").prop("disabled", true);
+    $("#code").val("");
+    $("#qty").val("").prop("disabled", true);
+    if (searchProdText === "") {
+      // console.log("escriba algo a buscar");
+      document.getElementById("resultListProd").innerHTML = "";
+    } else {
+      // console.log(searchProdText.toUpperCase());
+      $.ajax({
+        url:
+          "/companies/<%= company.id_company %>/products/listProducts?nameProduct=" +
+          searchProdText.toUpperCase().trim(),
+        type: "GET",
+        success: function (response, status) {
+          if (response) {
+            // console.log("AJAX worked!", response);
+            document.getElementById("resultListProd").innerHTML = "";
+            for (const key in response) {
+              $("#resultListProd").append(`<li class="list-group-item m-0">
+                        <span class="badge badge-primary badge-pill" onclick='setValueProd(this)' style="cursor: pointer"
+                          >${response[key].nombre}</span
+                        >
+                      </li>`);
+            }
+          } else {
+            document.getElementById("resultListProd").innerHTML = "";
+          }
+        },
+      });
+    }
+  }
+
+  // SET VALUE SELECTED LIST
+  function setValueProd(obj) {
+    // console.log(obj.innerHTML.trim());
+    document.getElementById("resultListProd").innerHTML = "";
+    $("#nameProduct").val(obj.innerHTML.trim());
+  }
+
+  // SEARCH PRODUCT BY NAME
+  function searchProductByName() {
+    var searchProdText = $("#nameProduct").val();
+    $("#price").val("");
+    $("#code").val("");
+    $("#price").prop("disabled", true).val("");
+    $("#qty").prop("disabled", true).val("");
+    // console.log(searchProdText);
+    $.ajax({
+      url:
+        "/companies/<%= company.id_company %>/products/searchProdByName?nameProduct=" +
+        searchProdText.trim(),
+      type: "GET",
+      success: function (response, status) {
+        if (response) {
+          // console.log("AJAX worked!", response);
+          $("#price").val(response.precio).prop("disabled", false);
+          $("#code").val(response.codigo);
+          $("#valid-product")
+            .text("Producto encontrado!")
+            .removeClass("bg-gradient-success")
+            .removeClass("bg-gradient-danger")
+            .addClass("bg-gradient-success");
+          $("#qty").prop("disabled", false).val("");
+        } else {
+          // console.log("NULL");
+          $("#price").val("");
+          $("#code").val("");
+          $("#valid-product")
+            .text("Producto no encontrado!")
+            .removeClass("bg-gradient-danger")
+            .removeClass("bg-gradient-success")
+            .addClass("bg-gradient-danger");
+          $("#qty").prop("disabled", true).val("");
+        }
+      },
+    });
+  }
+
+  // ADD PROD TO TABLE
+  function addProd() {
+    $("#valid-product").text("");
+    var nameProd = $("#nameProduct").val();
+    var priceProd = $("#price").val();
+    var codeProd = $("#code").val();
+    var qtyProd = $("#qty").val();
+    if (nameProd && priceProd && qtyProd > 0 && codeProd) {
+      // console.log(nameProd, priceProd, qtyProd);
+      // LLENA TABLA PRODCUTS ADD
+      $("#tableBodyProducts").append(`<tr>
+                  <td class="text-center text-sm text-secondary mb-0">${codeProd}</td>
+                  <td class="text-center text-sm text-secondary mb-0">${qtyProd}</td>
+                  <td class="text-sm text-secondary mb-0">${nameProd}</td>
+                  <td class="text-sm text-secondary mb-0">${priceProd}</td>
+                  <td class="text-sm text-secondary mb-0">${
+                    qtyProd * priceProd
+                  }</td>
+                  <td class="text-sm text-secondary mb-0">
+                    <button
+                      type="button"
+                      onclick="deleteRowProduct(this)"
+                      class="btn btn-outline-danger btn-sm btn-icon p-1" title="Quitar"
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="14"
+                        height="14"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                        stroke-width="2"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        ></path>
+                      </svg>
+                    </button>
+                  </td>
+                </tr>`);
+      $("#valid-product")
+        .text("Producto agregado correctamente!")
+        .removeClass("bg-gradient-success")
+        .removeClass("bg-gradient-danger")
+        .addClass("bg-gradient-success");
+      var arrayCol = $("#tableProdAdd td:nth-child(5)")
+        .map(function () {
+          return $(this).text();
+        })
+        .get();
+      // console.log(arrayCol);
+      var subtotal = 0;
+      for (var i in arrayCol) {
+        subtotal += Number(arrayCol[i]);
+      }
+      $("#subtotal").val(subtotal.toFixed(2));
+      $("#selectIva").val("");
+      $("#totalFact").val("");
+    } else {
+      // console.log("LLENE TODOS LOS CAMPOS");
+      $("#valid-product")
+        .text("Verifique todos los campos")
+        .removeClass("bg-gradient-danger")
+        .removeClass("bg-gradient-success")
+        .addClass("bg-gradient-danger");
+    }
+  }
+  function deleteRowProduct(btn) {
+    var row = btn.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+    var arrayCol = $("#tableProdAdd td:nth-child(5)")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    // console.log(arrayCol);
+    var subtotal = 0;
+    for (var i in arrayCol) {
+      subtotal += Number(arrayCol[i]);
+    }
+    $("#subtotal").val(subtotal.toFixed(2));
+    $("#selectIva").val("");
+    $("#totalFact").val("");
+  }
+
+  // RESET FORMA DE PAGO
+  function resetSelect() {
+    $("#formaPago").removeClass("is-valid").removeClass("is-invalid");
+  }
+
+  // IVA SELECT
+  function getvalIva(sel) {
+    // alert(sel.value);
+    $("#selectIva").removeClass("is-valid").removeClass("is-invalid");
+    switch (sel.value) {
+      case "0":
+        var subtotal = $("#subtotal").val();
+        var total = Number(subtotal) * 0 + Number(subtotal);
+        // console.log(total.toFixed(2));
+        $("#totalFact").val(total.toFixed(2));
+        break;
+      case "2":
+        var subtotal = $("#subtotal").val();
+        var total = Number(subtotal) * 0.12 + Number(subtotal);
+        // console.log(total.toFixed(2));
+        $("#totalFact").val(total.toFixed(2));
+        break;
+      case "3":
+        var subtotal = $("#subtotal").val();
+        var total = Number(subtotal) * 0.14 + Number(subtotal);
+        // console.log(total.toFixed(2));
+        $("#totalFact").val(total.toFixed(2));
+        break;
+      default:
+        // console.log("error iva total select");
+        break;
+    }
+  }
+
+  // ADD FACTURA
+  function addFact() {
+    // AUX
+    var auxSendInv = false;
+    var auxCheckRuc = false;
+    var auxCheckProducts = false;
+    var auxCheckBill = false;
+    var auxCheckIva = false;
+
+    // CHECK CLIENT
+    if ($("#ruc").val()) {
+      $("#valid-client")
+        .text("Correcto!")
+        .removeClass("bg-gradient-success")
+        .removeClass("bg-gradient-danger")
+        .addClass("bg-gradient-success");
+      auxCheckRuc = true;
+    } else {
+      $("#valid-client")
+        .text("Ingrese un cliente para registrar la factura!")
+        .removeClass("bg-gradient-danger")
+        .removeClass("bg-gradient-success")
+        .addClass("bg-gradient-danger");
+      auxCheckRuc = false;
+    }
+    // CHECK PRODUCTS
+    var arrayColProdCodes = $("#tableProdAdd td:nth-child(1)")
+      .map(function () {
+        return $(this).text();
+      })
+      .get();
+    // console.log(arrayColProdCodes);
+    if (arrayColProdCodes.length) {
+      $("#valid-product")
+        .text("Correcto!")
+        .removeClass("bg-gradient-success")
+        .removeClass("bg-gradient-danger")
+        .addClass("bg-gradient-success");
+      auxCheckProducts = true;
+    } else {
+      $("#valid-product")
+        .text("Agrege al menos 1 producto para registrar la factura!")
+        .removeClass("bg-gradient-danger")
+        .removeClass("bg-gradient-success")
+        .addClass("bg-gradient-danger");
+      auxCheckProducts = false;
+    }
+    // CHECK BILL
+    if ($("#formaPago").val()) {
+      $("#formaPago")
+        .removeClass("is-valid")
+        .removeClass("is-invalid")
+        .addClass("is-valid");
+      auxCheckBill = true;
+    } else {
+      $("#formaPago")
+        .removeClass("is-valid")
+        .removeClass("is-invalid")
+        .addClass("is-invalid");
+      auxCheckBill = false;
+    }
+    // CHECK IVA
+    if ($("#selectIva").val()) {
+      $("#selectIva")
+        .removeClass("is-valid")
+        .removeClass("is-invalid")
+        .addClass("is-valid");
+      auxCheckIva = true;
+    } else {
+      $("#selectIva")
+        .removeClass("is-valid")
+        .removeClass("is-invalid")
+        .addClass("is-invalid");
+      auxCheckIva = false;
+    }
+    // CHECK AUX
+    if (auxCheckRuc && auxCheckProducts && auxCheckBill && auxCheckIva) {
+      // console.log("IS FINE");
+      var ruc_Client = $("#ruc").val();
+      var productsCodigos = $("#tableProdAdd td:nth-child(1)")
+        .map(function () {
+          return $(this).text();
+        })
+        .get();
+      var productsPrecios = $("#tableProdAdd td:nth-child(4)")
+        .map(function () {
+          return $(this).text();
+        })
+        .get();
+      var productsQty = $("#tableProdAdd td:nth-child(2)")
+        .map(function () {
+          return $(this).text();
+        })
+        .get();
+      var formaPago = $("#formaPago").val();
+      // var estadoSri = $("#estadoSri").val();
+      var estadoFactura = $("#estadoFactura").val();
+      var comentario = $("#comentario").val();
+      var subtotal = $("#subtotal").val();
+      var ivaTarifa = $("#selectIva").val();
+      var total = $("#totalFact").val();
+      var secuencial = $("#secuencial").val();
+
+      // AJAX INVOICE
+      $.ajax({
+        url: "/companies/<%= company.id_company %>/invoices",
+        type: "POST",
+        data: {
+          secuencial,
+          ruc_Client,
+          productsCodigos: JSON.stringify(productsCodigos),
+          productsQty: JSON.stringify(productsQty),
+          productsPrecios: JSON.stringify(productsPrecios),
+          formaPago,
+          estadoSri: "1",
+          estadoFactura,
+          comentario,
+          subtotal,
+          ivaTarifa,
+          total,
+        },
+        success: function (response, status) {
+          // console.log(response);
+          window.location.href = response;
+        },
+      });
+    } else {
+      // console.log("Check error in page");
+    }
+  }
+</script>

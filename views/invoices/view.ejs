@@ -1,0 +1,339 @@
+<% layout('layouts/boilerplateDashboard') %>
+<div class="row">
+  <div class="col-12">
+    <div class="card border shadow-xs mb-4">
+      <div class="card-header border-bottom pb-0">
+        <%- include('../partials/companies/flash.ejs') %>
+        <div class="d-sm-flex align-items-center">
+          <div>
+            <h6 class="font-weight-bold text-lg mb-3">Ver Factura</h6>
+          </div>
+          <div class="ms-auto d-flex">
+            <div class="input-group input-group-lg">
+                <span class="input-group-text" id="inputGroup-sizing-lg"
+                  >Fecha</span
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="fechaInv"
+                  value="<%= invoice.nuevoss %>"
+                  readonly
+                />
+              </div>
+            <div class="input-group input-group-lg">
+              <span class="input-group-text" id="inputGroup-sizing-lg"
+                >Núm Factura</span
+              >
+              <input
+                type="text"
+                class="form-control"
+                id="secuencial"
+                value="<%= invoice.numFactura %>"
+                readonly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <!-- CLIENT -->
+        <div class="card-body partsCard mb-3">
+          <div>
+            <h6 class="font-weight-semibold mb-2">Cliente</h6>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-4">
+              <div class="form-group">
+                <label class="form-control-label" for="ruc"
+                  >Identificacion</label
+                >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="ruc"
+                    value="<%= cliente.ruc %>"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="form-group">
+                <label class="form-control-label" for="razonSocial"
+                  >Razon Social</label
+                >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="razonSocial"
+                    value="<%= cliente.razonSocial %>"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--  -->
+          <div class="row align-items-center">
+            <div class="col-12">
+              <div class="form-group">
+                <label class="form-control-label" for="address"
+                  >Direccion</label
+                >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="address"
+                    value="<%= cliente.direccion %>"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row align-items-center">
+            <div class="col-6">
+              <div class="form-group">
+                <label class="form-control-label" for="phone">Telefono</label>
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="phone"
+                    value="<%= cliente.telefono %>"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+            <div class="col-6">
+              <div class="form-group">
+                <label class="form-control-label" for="email"
+                  >Correo Electronico</label
+                >
+                <div class="input-group">
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="email"
+                    value="<%= cliente.email %>"
+                    readonly
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- DETAILS -->
+        <div class="card-body partsCard mb-3">
+          <div>
+            <h6 class="font-weight-semibold mb-3">Detalle</h6>
+          </div>
+          <div class="row">
+            <!-- TABLE PROD -->
+            <div class="col-12">
+              <table class="table" id="tableProdAdd">
+                <thead class="">
+                  <tr>
+                    <th
+                      scope="col"
+                      class="text-center text-secondary text-xs font-weight-semibold opacity-7 border-light"
+                    >
+                      Codigo
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-center text-secondary text-xs font-weight-semibold opacity-7 border-light"
+                    >
+                      Cantidad
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    >
+                      Descripcion
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    >
+                      P.Unit
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    >
+                      Total
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-secondary text-xs font-weight-semibold opacity-7 border-light ps-2"
+                    ></th>
+                  </tr>
+                </thead>
+                <tbody id="tableBodyProducts">
+                    <% for(let _detail of details) {%>
+                        <tr>
+                            <td class="text-center text-sm text-secondary mb-0"><%= _detail.codigo %></td>
+                            <td class="text-center text-sm text-secondary mb-0"><%= _detail.cantidad %></td>
+                            <td class="text-sm text-secondary mb-0"><%= _detail.nombre %></td>
+                            <td class="text-sm text-secondary mb-0"><%= _detail.precio %></td>
+                            <td class="text-sm text-secondary mb-0"><%= _detail.cantidad * _detail.precio %></td>
+                          </tr>
+                    <% } %> 
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <!-- FOOTER INVOICE -->
+        <div class="card-body partsCard mb-1">
+          <div class="row">
+            <!-- WAY BILL -->
+            <div class="col-3">
+              <div class="form-group">
+                <label for="formaPago">Forma de Pago</label>
+                <select
+                  class="form-control"
+                  id="formaPago"
+                  onchange="resetSelect();"
+                  disabled
+                >
+                  <option disabled value="">Seleccione...</option>
+                  <option <% if (invoice.formaPago === '01') { %>selected <% } %> value="01">Efectivo</option>
+                  <option <% if (invoice.formaPago === '16') { %>selected <% } %> value="16">Tarjeta de Debito</option>
+                  <option <% if (invoice.formaPago === '17') { %>selected <% } %> value="17">Dinero Electronico</option>
+                  <option <% if (invoice.formaPago === '19') { %>selected <% } %> value="19">Tarjeta de Credito</option>
+                  <option <% if (invoice.formaPago === '20') { %>selected <% } %> value="20">Otros</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="comentario">Comentario</label>
+                <textarea
+                  class="form-control"
+                  id="comentario"
+                  rows="2"
+                  placeholder="Opcional"
+                  
+                ><%= invoice.comentario %></textarea>
+              </div>
+            </div>
+            <!-- MIDDLE -->
+            <div class="col-6">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="form-group">
+                          <label for="estadoFactura">Estado Factura</label>
+                          <% if (invoice.estado === '0') { %>
+                              <select disabled class="form-control" id="estadoSri">
+                                <option selected value="0">Anulada</option>
+                              </select>
+                              <% } else {%>
+                          <select class="form-control" id="estadoFactura">
+                            <option disabled value="">Seleccione...</option>
+                            <option <% if (invoice.estado === '1') { %>selected <% } %> value="1">Completada</option>
+                            <option <% if (invoice.estado === '2') { %>selected <% } %> value="2">Por Cobrar</option>
+                          </select>
+                          <% } %>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        
+                    </div>
+                    <div class="col-12">
+                        <button
+                            type="button"
+                            class="btn btn-info w-100"
+                            onclick="updateFact()"
+                        >
+                            Actualizar Factura
+                        </button>
+                    </div>
+                    <div class="col-12">
+                      <a
+                          href="/companies/<%= company.id_company %>/invoices"
+                          role="button"
+                          class="btn btn-secondary w-100"
+                      >
+                          Regresar
+                    </a>
+                  </div>
+                </div>
+            </div>
+            <!-- TOTALS -->
+            <div class="col-3">
+              <div class="form-group mb-1">
+                <div class="input-group">
+                  <span class="input-group-text">Subtotal</span>
+                  <input
+                    type="number"
+                    class="form-control"
+                    placeholder="0.00"
+                    id="subtotal"
+                    value="<%= invoice.subtotal %>"
+                    readonly
+                  />
+                </div>
+              </div>
+              <div class="form-group mb-1">
+                <div class="input-group">
+                  <span class="input-group-text">IVA</span>
+                  <select
+                    class="form-control"
+                    id="selectIva"
+                    disabled
+                  >
+                    <option disabled value="">
+                      Seleccione tarifa IVA
+                    </option>
+                    <option <% if (invoice.ivaTarifa === '0') { %>selected <% } %> value="0">0&#37;</option>
+                    <option <% if (invoice.ivaTarifa === '2') { %>selected <% } %> value="2">12&#37;</option>
+                    <option <% if (invoice.ivaTarifa === '3') { %>selected <% } %> value="3">14&#37;</option>
+                  </select>
+                </div>
+              </div>
+              <div class="form-group mb-2">
+                <div class="input-group">
+                  <span class="input-group-text text-lg">Total</span>
+                  <input
+                    type="number"
+                    class="form-control text-lg"
+                    placeholder="0.00"
+                    id="totalFact"
+                    value="<%= invoice.total %>"
+                    readonly
+                  />
+                </div>
+              </div>              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="my-0" />
+<script>
+    // UPDATE PRODUCT
+    function updateFact() {
+    var estadoFactura = $("#estadoFactura").val();
+    var comentario = $("#comentario").val();
+
+    $.ajax({
+        url: "/companies/<%= company.id_company %>/invoices/<%= invoice.id_invoice %>",
+        type: "POST",
+        data: {
+          estadoFactura,
+          comentario,
+        },
+        success: function (response, status) {
+          // console.log(response);
+          window.location.href = response;
+        },
+      });
+    }
+</script>

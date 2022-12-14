@@ -1,0 +1,124 @@
+<% layout('layouts/boilerplateCompanies') %>
+
+<div class="row">
+  <div class="col-12">
+    <div class="card border shadow-xs mb-4">
+      <div class="card-header border-bottom pb-0">
+        <%- include('../partials/companies/flash.ejs') %>
+        <div class="d-sm-flex align-items-center">
+          <div>
+            <h6 class="font-weight-bold text-lg mb-0">Editar Empresa</h6>
+            <p class="text-sm">Actualice los datos de su empresa!</p>
+          </div>
+          <div class="ms-auto d-flex"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <form
+          class="needs-validation"
+          action="/companies/<%= company.id_company %>?_method=PUT"
+          method="post"
+          novalidate
+          role="form text-left"
+        >
+          <label for="ruc">RUC</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="RUC"
+              id="ruc"
+              name="ruc"
+              value="<%= company.ruc %>"
+              required
+            />
+          </div>
+          <label for="razonSocial">Razón Social</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Razón Social"
+              id="razonSocial"
+              name="razonSocial"
+              value="<%= company.razonSocial %>"
+              required
+            />
+          </div>
+          <label for="dirMatriz">Dirección Matriz</label>
+          <div class="input-group mb-3">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Dirección Matriz"
+              id="dirMatriz"
+              name="dirMatriz"
+              value="<%= company.dirMatriz %>"
+              required
+            />
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              <label for="codEstablecimiento">Código Establecimiento</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="001"
+                  id="codEstablecimiento"
+                  name="codEstablecimiento"
+                  value="<%= company.codEstablecimiento %>"
+                  required
+                />
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label for="codPuntoEmision">Código del Punto de Emisión</label>
+              <div class="input-group mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="001"
+                  id="codPuntoEmision"
+                  name="codPuntoEmision"
+                  value="<%= company.codPuntoEmision %>"
+                  required
+                />
+              </div>
+            </div>
+          </div>
+          <!-- combo -->
+          <label for="codPuntoEmision">Tipo de ambiente</label>
+          <div class="form-group">
+            <select
+              class="form-control"
+              id="validationCustom04"
+              name="tipoAmbiente"
+              required
+            >
+              <option disabled value="">Seleccione...</option>
+              <option value="2" <% if (company.tipoAmbiente === '2') { %>selected <% } %>>PRODUCCIÓN</option>
+              <option value="1" <% if (company.tipoAmbiente === '1') { %>selected <% } %>>PRUEBAS</option>
+            </select>
+          </div>
+          <div class="text-center">
+            <button
+              type="submit"
+              class="btn btn-dark btn-rounded w-100 mt-2 mb-0"
+            >
+              Actualizar
+            </button>
+            <a
+              href="/companies"
+              role="button"
+              class="btn btn-white btn-lg btn-rounded w-100 mt-1 mb-1"
+            >
+              Cancelar
+            </a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<hr class="my-0" />
