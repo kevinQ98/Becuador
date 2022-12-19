@@ -62,8 +62,11 @@ module.exports.login = async (req, res, next) => {
     ]);
     // console.log("CHECK USER LOGIN", result);
     if (!result.length) {
-      req.flash("error", "Usuario no registrado!");
-      res.redirect("/register");
+      req.flash(
+        "error",
+        "El correo electrónico o la contraseña son incorrectos!"
+      );
+      res.redirect("/login");
     } else {
       // CHECK CREDENTIALS
       const comparison = await bcrypt.compare(
