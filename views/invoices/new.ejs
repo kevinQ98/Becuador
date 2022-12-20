@@ -8,7 +8,12 @@
           <div>
             <h6 class="font-weight-bold text-lg mb-3">Nueva Factura</h6>
           </div>
-          <div class="ms-auto d-flex">
+          <div class="ms-auto d-flex"></div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
             <div class="form-group">
               <label
                 for="example-datetime-local-input"
@@ -18,11 +23,17 @@
               <input
                 class="form-control"
                 type="date"
-                value="2022-11-25"
                 id="example-datetime-local-input"
               />
+              <script>
+                var today = new Date().toISOString().split("T")[0];
+                document.getElementById("example-datetime-local-input").value =
+                  today;
+              </script>
             </div>
-            <div class="input-group input-group-lg">
+          </div>
+          <div class="col-md-8">
+            <div class="input-group input-group-lg mt-4 p-1">
               <span class="input-group-text" id="inputGroup-sizing-lg"
                 >Núm Factura</span
               >
@@ -36,15 +47,13 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card-body">
         <!-- CLIENT -->
         <div class="card-body partsCard mb-3">
           <div>
             <h6 class="font-weight-semibold mb-0">Cliente</h6>
           </div>
           <div class="row align-items-center">
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="input-group mb-1">
                 <input
                   type="text"
@@ -65,7 +74,7 @@
               </div>
               <div class="badge bg-gradient-danger m-0" id="valid-client"></div>
             </div>
-            <div class="col-2">
+            <div class="col-md-2">
               <div class="form-group">
                 <label class="form-control-label" for="ruc"
                   >Identificacion</label
@@ -75,7 +84,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="form-control-label" for="razonSocial"
                   >Razon Social</label
@@ -93,7 +102,7 @@
           </div>
           <!--  -->
           <div class="row align-items-center">
-            <div class="col-4">
+            <div class="d-none d-md-block col-md-4">
               <a
                 href="/companies/<%= company.id_company %>/clients/new"
                 role="button"
@@ -102,7 +111,7 @@
                 Registrar Nuevo Cliente
               </a>
             </div>
-            <div class="col-8">
+            <div class="col-md-8">
               <div class="form-group">
                 <label class="form-control-label" for="address"
                   >Direccion</label
@@ -119,8 +128,8 @@
             </div>
           </div>
           <div class="row align-items-center">
-            <div class="col-4"></div>
-            <div class="col-4">
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
               <div class="form-group">
                 <label class="form-control-label" for="phone">Telefono</label>
                 <div class="input-group">
@@ -128,7 +137,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="form-group">
                 <label class="form-control-label" for="email"
                   >Correo Electronico</label
@@ -178,7 +187,7 @@
                   </div>
                 </div>
                 <!-- New Prod btn -->
-                <div class="col-2 mt-2 mb-0 py-0">
+                <div class="col-md-2 mt-2 mb-0 py-0">
                   <a
                     href="/companies/<%= company.id_company %>/products/new"
                     role="button"
@@ -188,7 +197,7 @@
                   </a>
                 </div>
                 <!-- others prod -->
-                <div class="col-4">
+                <div class="col-md-4">
                   <div class="form-group">
                     <label class="form-control-label" for="code">Codigo</label>
                     <div class="input-group">
@@ -201,7 +210,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-control-label" for="price">Precio</label>
                     <div class="input-group">
@@ -216,7 +225,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-3">
+                <div class="col-md-3">
                   <div class="form-group">
                     <label class="form-control-label" for="qty">Cantidad</label>
                     <div class="input-group">
@@ -231,7 +240,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-2 p-0 mt-3">
+                <div class="col-md-2 p-0 mt-3">
                   <button
                     type="button"
                     class="btn btn-outline-info mt-3"
@@ -246,7 +255,7 @@
               </div>
             </div>
             <!-- TABLE PROD -->
-            <div class="col-12">
+            <div class="col-12 table-responsive">
               <table class="table" id="tableProdAdd">
                 <thead class="">
                   <tr>
@@ -295,7 +304,7 @@
         <div class="card-body partsCard mb-1">
           <div class="row">
             <!-- WAY BILL -->
-            <div class="col-3">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="formaPago">Forma de Pago</label>
                 <select
@@ -322,7 +331,7 @@
               </div>
             </div>
             <!-- MIDDLE -->
-            <div class="col-3">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="estadoFactura">Estado Factura</label>
                 <select class="form-control" id="estadoFactura">
@@ -332,7 +341,7 @@
                 </select>
               </div>
             </div>
-            <div class="col-3">
+            <div class="col-md-3">
               <!-- <div class="form-group">
                 <label for="estadoSri">Estado SRI</label>
                 <select class="form-control" id="estadoSri">
@@ -343,7 +352,7 @@
               </div> -->
             </div>
             <!-- TOTALS -->
-            <div class="col-3">
+            <div class="col-md-3">
               <div class="form-group mb-1">
                 <div class="input-group">
                   <span class="input-group-text">Subtotal</span>
