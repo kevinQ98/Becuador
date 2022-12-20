@@ -66,7 +66,7 @@ module.exports.login = async (req, res, next) => {
         "error",
         "El correo electrónico o la contraseña son incorrectos!"
       );
-      res.redirect("/register");
+      res.redirect("/login");
     } else {
       // CHECK CREDENTIALS
       const comparison = await bcrypt.compare(
