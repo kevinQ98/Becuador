@@ -1,6 +1,6 @@
 <% layout('layouts/boilerplateDashboard') %>
 <div class="row">
-  <div class="col-12">
+  <div class="col-md-12">
     <div class="card border shadow-xs mb-4">
       <div class="card-header border-bottom pb-0">
         <%- include('../partials/companies/flash.ejs') %>
@@ -9,18 +9,27 @@
             <h6 class="font-weight-bold text-lg mb-3">Ver Factura</h6>
           </div>
           <div class="ms-auto d-flex">
+            
+          </div>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-4">
             <div class="input-group input-group-lg">
-                <span class="input-group-text" id="inputGroup-sizing-lg"
-                  >Fecha</span
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  id="fechaInv"
-                  value="<%= invoice.nuevoss %>"
-                  readonly
-                />
-              </div>
+            <span class="input-group-text" id="inputGroup-sizing-lg"
+              >Fecha</span
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="fechaInv"
+              value="<%= invoice.nuevoss %>"
+              readonly
+            />
+            </div>
+          </div>
+          <div class="col-md-8">
             <div class="input-group input-group-lg">
               <span class="input-group-text" id="inputGroup-sizing-lg"
                 >Núm Factura</span
@@ -35,15 +44,13 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="card-body">
         <!-- CLIENT -->
         <div class="card-body partsCard mb-3">
           <div>
             <h6 class="font-weight-semibold mb-2">Cliente</h6>
           </div>
           <div class="row align-items-center">
-            <div class="col-4">
+            <div class="col-md-4">
               <div class="form-group">
                 <label class="form-control-label" for="ruc"
                   >Identificacion</label
@@ -59,7 +66,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-8">
+            <div class="col-md-8">
               <div class="form-group">
                 <label class="form-control-label" for="razonSocial"
                   >Razon Social</label
@@ -78,7 +85,7 @@
           </div>
           <!--  -->
           <div class="row align-items-center">
-            <div class="col-12">
+            <div class="col-md-12">
               <div class="form-group">
                 <label class="form-control-label" for="address"
                   >Direccion</label
@@ -96,7 +103,7 @@
             </div>
           </div>
           <div class="row align-items-center">
-            <div class="col-6">
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="form-control-label" for="phone">Telefono</label>
                 <div class="input-group">
@@ -110,7 +117,7 @@
                 </div>
               </div>
             </div>
-            <div class="col-6">
+            <div class="col-md-6">
               <div class="form-group">
                 <label class="form-control-label" for="email"
                   >Correo Electronico</label
@@ -135,7 +142,7 @@
           </div>
           <div class="row">
             <!-- TABLE PROD -->
-            <div class="col-12">
+            <div class="col-md-12 table-responsive">
               <table class="table" id="tableProdAdd">
                 <thead class="">
                   <tr>
@@ -194,7 +201,7 @@
         <div class="card-body partsCard mb-1">
           <div class="row">
             <!-- WAY BILL -->
-            <div class="col-3">
+            <div class="col-md-3">
               <div class="form-group">
                 <label for="formaPago">Forma de Pago</label>
                 <select
@@ -223,9 +230,9 @@
               </div>
             </div>
             <!-- MIDDLE -->
-            <div class="col-6">
+            <div class="col-md-6">
                 <div class="row">
-                    <div class="col-6">
+                    <div class="col-md-6">
                         <div class="form-group">
                           <label for="estadoFactura">Estado Factura</label>
                           <% if (invoice.estado === '0') { %>
@@ -241,31 +248,14 @@
                           <% } %>
                         </div>
                     </div>
-                    <div class="col-6">
+                    <div class="col-md-6">
                         
                     </div>
-                    <div class="col-12">
-                        <button
-                            type="button"
-                            class="btn btn-info w-100"
-                            onclick="updateFact()"
-                        >
-                            Actualizar Factura
-                        </button>
-                    </div>
-                    <div class="col-12">
-                      <a
-                          href="/companies/<%= company.id_company %>/invoices"
-                          role="button"
-                          class="btn btn-secondary w-100"
-                      >
-                          Regresar
-                    </a>
-                  </div>
+                    
                 </div>
             </div>
             <!-- TOTALS -->
-            <div class="col-3">
+            <div class="col-md-3">
               <div class="form-group mb-1">
                 <div class="input-group">
                   <span class="input-group-text">Subtotal</span>
@@ -310,6 +300,26 @@
                 </div>
               </div>              
             </div>
+            <!-- BUTTON ACTUALIZAR -->
+            <div class="col-md-12">
+              <button
+                  type="button"
+                  class="btn btn-info w-100"
+                  onclick="updateFact()"
+              >
+                  Actualizar Factura
+              </button>
+          </div>
+          <!-- BUTTON REGRESAR -->
+          <div class="col-md-12">
+            <a
+                href="/companies/<%= company.id_company %>/invoices"
+                role="button"
+                class="btn btn-secondary w-100"
+            >
+                Regresar
+          </a>
+          </div>
           </div>
         </div>
       </div>
