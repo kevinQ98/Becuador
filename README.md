@@ -35,9 +35,6 @@ Becuador uses several open source projects to function properly:
 - [Express](https://expressjs.com/)
 - [jQuery](https://jquery.com/)
 
-## Demo
-Demo URL: https://becuador-production.up.railway.app/login
-
 ## Views
 ### Login
 ![Texto Alt](https://github.com/kevinQ98/Becuador/blob/master/Captures/Login.png "Login")
